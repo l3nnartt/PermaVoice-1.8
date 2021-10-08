@@ -24,6 +24,11 @@ version = "1.0"
 group= "de.permavoice" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "PermaVoice"
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+
 minecraft {
     version = "1.8.9-11.15.1.1855"
     runDir = "run"

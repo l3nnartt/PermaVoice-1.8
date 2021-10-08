@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e43a39-4037-44a5-8e6c-58c04919cdf4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/libs/lm_api_mc1.8.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/Permavoice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/addon.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/examplemod/ExampleMod.java" beforeDir="false" />
+    <list default="true" id="83e43a39-4037-44a5-8e6c-58c04919cdf4" name="Changes" comment="rename workflow">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/updater/FileDownloader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/updater/UpdateChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice-new.iml" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice-new.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice.iws" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +56,23 @@
     <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
   </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -61,6 +81,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ModuleEditorState">
@@ -73,7 +98,9 @@
       <profile-state />
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -82,6 +109,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -90,8 +118,13 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/lm_api_mc1.8.9.jar" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -196,14 +229,53 @@
       <option name="presentableId" value="Default" />
       <updated>1633715350983</updated>
       <workItem from="1633715349588" duration="400000" />
+      <workItem from="1633716134484" duration="1044000" />
     </task>
+    <task id="LOCAL-00001" summary="update gradlew">
+      <created>1633716196771</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1633716196771</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add Workflow">
+      <created>1633716297545</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1633716297545</updated>
+    </task>
+    <task id="LOCAL-00003" summary="rename workflow">
+      <created>1633716363362</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1633716363362</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="update gradlew" />
+    <MESSAGE value="Add Workflow" />
+    <MESSAGE value="rename workflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="rename workflow" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
 </project>
