@@ -1,0 +1,10 @@
+{
+  "uuid": "%uuid%",
+  "name": "PermaVoice",
+  "mainClass": "de.permavoice.PermaVoice",
+  "description": "",
+  "version": 1,
+  "author": "L3nnart_, xConnorTV",
+  "category": 1,
+  "icon": ""
+}
