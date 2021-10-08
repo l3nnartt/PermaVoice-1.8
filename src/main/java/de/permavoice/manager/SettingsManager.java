@@ -9,6 +9,7 @@ import net.labymod.gui.elements.DropDownMenu;
 import net.labymod.settings.elements.*;
 import net.labymod.utils.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -48,11 +49,11 @@ public class SettingsManager {
     }
 
     public void fillSettings(List<SettingsElement> subSettings){
-        subSettings.add(new BooleanElement("Enabled", new ControlElement.IconData(Material.REDSTONE), aBoolean -> {
+        subSettings.add(new BooleanElement("Enabled", new ControlElement.IconData(new ResourceLocation("permavoice/icons/enable.png")), aBoolean -> {
             pvEnabled = aBoolean;
             saveSettings();
         }, pvEnabled));
-        subSettings.add(new KeyElement("Key", permaVoice ,new ControlElement.IconData(Material.ACACIA_STAIRS), "key", this.pvKey));
+        subSettings.add(new KeyElement("Key", permaVoice ,new ControlElement.IconData(new ResourceLocation("permavoice/icons/wasd.png")), "key", this.pvKey));
         DropDownMenu<String> alignmentDropDownMenu = new DropDownMenu("Mode", 0, 0, 0, 0).fill(MODES.getAllTexts());
         alignmentDropDownMenu.setSelected(this.currentMode.modeText);
         DropDownElement<String> alignmentDropDown = new DropDownElement("Mode", alignmentDropDownMenu);
