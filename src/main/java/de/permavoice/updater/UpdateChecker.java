@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import main.java.de.permavoice.updater.FileDownloader;
 import net.labymod.addon.AddonLoader;
 import net.minecraft.realms.RealmsSharedConstants;
 import org.apache.commons.io.IOUtils;

@@ -9,12 +9,10 @@ import net.labymod.settings.elements.BooleanElement;
 import net.labymod.settings.elements.ControlElement;
 import net.labymod.settings.elements.KeyElement;
 import net.labymod.settings.elements.SettingsElement;
-import net.labymod.utils.Consumer;
 import net.labymod.utils.Material;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -40,9 +38,6 @@ public class SettingsManager {
 
         api.registerForgeListener(this);
         this.isPVInitialised = false;
-
-
-
     }
 
     public void fillSettings(List<SettingsElement> subSettings){
@@ -51,7 +46,7 @@ public class SettingsManager {
     }
 
     public void onLoadConfig(){
-        this.pvEnabled = permaVoice.getConfig().has("enabled") ? permaVoice.getConfig().get("enabled").getAsBoolean() : true;
+        this.pvEnabled = !permaVoice.getConfig().has("enabled") || permaVoice.getConfig().get("enabled").getAsBoolean();
         this.pvKey = permaVoice.getConfig().has("key") ? permaVoice.getConfig().get("key").getAsInt() : -1;
     }
 
@@ -79,7 +74,6 @@ public class SettingsManager {
         if(isVoiceChatLoaded){
             voiceChatInstance.onTick(event);
         }
-
     }
 
     @SubscribeEvent

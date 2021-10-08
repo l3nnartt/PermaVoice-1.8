@@ -1,4 +1,4 @@
-package main.java.de.permavoice.updater;
+package de.permavoice.updater;
 
 import java.io.File;
 import java.io.IOException;
