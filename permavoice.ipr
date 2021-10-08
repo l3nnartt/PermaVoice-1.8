@@ -83,15 +83,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
-  <component name="libraryTable">
-    <library name="lm_api_mc1.8.9">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/lm_api_mc1.8.9.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-  </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
