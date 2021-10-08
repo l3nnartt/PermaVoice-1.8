@@ -1,6 +1,6 @@
-package main.java.de.permavoice.updater;
+package de.permavoice.updater;
 
-import de.permavoice.Permavoice;
+import de.permavoice.PermaVoice;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.File;
@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import main.java.de.permavoice.updater.FileDownloader;
 import net.labymod.addon.AddonLoader;
 import net.minecraft.realms.RealmsSharedConstants;
 import org.apache.commons.io.IOUtils;
@@ -68,7 +69,7 @@ public class UpdateChecker implements Runnable {
 
     if (dir != null && file != null && file.exists()) return file;
     try {
-      URLConnection con = Permavoice.class.getProtectionDomain().getCodeSource().getLocation().openConnection();
+      URLConnection con = PermaVoice.class.getProtectionDomain().getCodeSource().getLocation().openConnection();
       file = new File(((JarURLConnection)con).getJarFileURL().getPath());
     } catch (Exception e2) {
       e2.printStackTrace();
