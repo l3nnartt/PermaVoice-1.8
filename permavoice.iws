@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="83e43a39-4037-44a5-8e6c-58c04919cdf4" name="Changes" comment="rename workflow">
       <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/updater/FileDownloader.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/updater/UpdateChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/permavoice-new.iml" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice-new.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/permavoice.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/permavoice.iws" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.iws" afterDir="false" />
+=======
+    <list default="true" id="83e43a39-4037-44a5-8e6c-58c04919cdf4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/libs/VoiceChat.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/manager/SettingsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permavoice.iws" beforeDir="false" afterPath="$PROJECT_DIR$/permavoice.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/permavoice/Permavoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/permavoice/PermaVoice.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +98,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
@@ -120,6 +138,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< Updated upstream
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/lm_api_mc1.8.9.jar" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -127,7 +146,18 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/VoiceChat.jar" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+>>>>>>> Stashed changes
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Github\permavoice\libs" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Minecraft Client">
     <configuration default="true" factoryName="Applet" type="Applet">
@@ -228,8 +258,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633715350983</updated>
+<<<<<<< Updated upstream
       <workItem from="1633715349588" duration="400000" />
       <workItem from="1633716134484" duration="1044000" />
+=======
+      <workItem from="1633715349588" duration="2913000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="update gradlew">
       <created>1633716196771</created>

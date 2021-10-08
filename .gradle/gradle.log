@@ -5,7 +5,16 @@ Warning, useNotchSrg() is deprecated! You should use mappingType instead.Warning
 WARNING: You are using an unsupported version of ForgeGradle.
 Please consider upgrading to ForgeGradle 5 and helping in the efforts to get old versions working on the modern toolchain.
 See https://gist.github.com/TheCurle/fe7ad3ede188cbdd15c235cc75d52d4a for more info on contributing.
+#################################################
+         ForgeGradle 2.1.2-g6aa76ec        
+  https://github.com/MinecraftForge/ForgeGradle  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
 
 CONFIGURE SUCCESSFUL
 
-Total time: 0.42 secs
+Total time: 23.873 secs
