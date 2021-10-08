@@ -1,4 +1,4 @@
-name: TimoliaAddon
+name: build addon
 
 on:
   push:
