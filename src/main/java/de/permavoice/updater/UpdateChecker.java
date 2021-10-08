@@ -53,12 +53,12 @@ public class UpdateChecker implements Runnable {
     }
 
     if (dir != null && dir.exists()) {
-      file = new File(dir, "Bugfixes.jar");
+      file = new File(dir, "PermaVoice.jar");
       if (!file.exists()) {
         File[] listFiles;
         for (int length = (listFiles = dir.listFiles()).length, i = 0; i < length; i++) {
           File f = listFiles[i];
-          if (f.getName().toLowerCase().contains("bugfixes")) {
+          if (f.getName().toLowerCase().contains("PermaVoice")) {
             file = f;
             break;
           } 

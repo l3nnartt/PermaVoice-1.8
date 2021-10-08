@@ -16,7 +16,7 @@ public class PermaVoice extends LabyModAddon {
     @Override
     public void onEnable() {
         this.settingsManager = new SettingsManager(this);
-        exService.execute(new UpdateChecker());
+       // exService.execute(new UpdateChecker());
     }
 
     @Override

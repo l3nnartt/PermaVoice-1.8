@@ -41,9 +41,10 @@ public class SettingsManager {
         this.api = permaVoice.api;
 
         this.isVoiceChatLoaded = false;
-
         api.registerForgeListener(this);
         this.isPVInitialised = false;
+
+
     }
 
     public void fillSettings(List<SettingsElement> subSettings){
@@ -70,8 +71,9 @@ public class SettingsManager {
     }
 
     private void saveSettings() {
-        this.permaVoice.getConfig().addProperty("enabled", Boolean.valueOf(this.pvEnabled));
-        this.permaVoice.getConfig().addProperty("currentMode", Integer.valueOf(this.currentMode.modeId));
+        this.permaVoice.getConfig().addProperty("enabled", this.pvEnabled);
+        this.permaVoice.getConfig().addProperty("currentMode", this.currentMode.modeId);
+        this.permaVoice.saveConfig();
     }
 
     @SubscribeEvent
@@ -102,7 +104,7 @@ public class SettingsManager {
 
     @SubscribeEvent
     public void handlePress(TickEvent.ClientTickEvent event){
-        if (!this.isPVInitialised || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled)
+        if (!this.isPVInitialised || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled || this.voiceChatInstance.isPushToTalkPressed())
             return;
         if (this.currentMode.equals(MODES.MUTE)) {
             this.state = false;
@@ -123,9 +125,15 @@ public class SettingsManager {
                 this.isToggled = false;
             }
             simulateVoiceChatPress(this.state);
+        }else if (this.currentMode.equals(MODES.SPEAKING)) {
+            this.state = false;
+            if(voiceChatInstance.getLastRMSLevel() >= 2000){
+                simulateVoiceChatPress(true);
+            }else {
+                simulateVoiceChatPress(false);
+            }
         }
     }
-
 
     private void simulateVoiceChatPress(boolean status){
         try {
@@ -134,32 +142,30 @@ public class SettingsManager {
             e.printStackTrace();
         }
     }
-
     public VoiceChat getVoiceChatInstance() {
         return voiceChatInstance;
     }
-
     public boolean isPvEnabled() {
         return pvEnabled;
     }
-
     public boolean isPVInitialised() {
         return isPVInitialised;
     }
-
     public boolean isVoiceChatLoaded() {
         return isVoiceChatLoaded;
     }
+    public MODES getCurrentMode() {
+        return currentMode;
+    }
     public enum MODES {
+
         MUTE(0, "Push To Mute"),
-        TOGGLE(1, "Toggle the VoiceChat");
+        TOGGLE(1, "Toggle the VoiceChat"),
+        SPEAKING(2, "Activate on Speaking (WIP)");
 
         int modeId;
-
         String modeText;
-
-        private static MODES[] values = values();
-
+        private static MODES[] values;
         MODES(int modeId, String modeText) {
             this.modeId = modeId;
             this.modeText = modeText;
