@@ -14,6 +14,24 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="DiscordProjectSettings">
+    <option name="show" value="PROJECT" />
+    <option name="description" value="" />
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
   <component name="GradleUISettings">
     <setting name="root" />
   </component>
@@ -46,7 +64,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/permavoice.iml" filepath="$PROJECT_DIR$/permavoice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/permavoice-new.iml" filepath="$PROJECT_DIR$/permavoice-new.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK">
