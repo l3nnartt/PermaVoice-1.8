@@ -5,15 +5,17 @@ import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAPI;
 import net.labymod.api.LabyModAddon;
-import net.labymod.settings.elements.BooleanElement;
-import net.labymod.settings.elements.ControlElement;
-import net.labymod.settings.elements.KeyElement;
-import net.labymod.settings.elements.SettingsElement;
+import net.labymod.gui.elements.DropDownMenu;
+import net.labymod.settings.elements.*;
 import net.labymod.utils.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.input.Keyboard;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsManager {
@@ -30,6 +32,10 @@ public class SettingsManager {
     private boolean pvEnabled;
     private int pvKey;
 
+    private MODES currentMode;
+    private boolean isToggled;
+    private boolean state;
+
     public SettingsManager(PermaVoice permaVoice){
         this.permaVoice = permaVoice;
         this.api = permaVoice.api;
@@ -41,13 +47,31 @@ public class SettingsManager {
     }
 
     public void fillSettings(List<SettingsElement> subSettings){
-        subSettings.add(new BooleanElement("Enabled", new ControlElement.IconData(Material.REDSTONE), aBoolean -> pvEnabled = aBoolean, pvEnabled));
+        subSettings.add(new BooleanElement("Enabled", new ControlElement.IconData(Material.REDSTONE), aBoolean -> {
+            pvEnabled = aBoolean;
+            saveSettings();
+        }, pvEnabled));
         subSettings.add(new KeyElement("Key", permaVoice ,new ControlElement.IconData(Material.ACACIA_STAIRS), "key", this.pvKey));
+        DropDownMenu<String> alignmentDropDownMenu = new DropDownMenu("Mode", 0, 0, 0, 0).fill(MODES.getAllTexts());
+        alignmentDropDownMenu.setSelected(this.currentMode.modeText);
+        DropDownElement<String> alignmentDropDown = new DropDownElement("Mode", alignmentDropDownMenu);
+        alignmentDropDown.setChangeListener(modes -> {
+            this.currentMode = MODES.getModeByText(modes);
+            saveSettings();
+        });
+        subSettings.add(alignmentDropDown);
+
     }
 
     public void onLoadConfig(){
         this.pvEnabled = !permaVoice.getConfig().has("enabled") || permaVoice.getConfig().get("enabled").getAsBoolean();
         this.pvKey = permaVoice.getConfig().has("key") ? permaVoice.getConfig().get("key").getAsInt() : -1;
+        this.currentMode = MODES.getModeById(this.permaVoice.getConfig().has("mode") ? this.permaVoice.getConfig().get("mode").getAsInt() : 1);
+    }
+
+    private void saveSettings() {
+        this.permaVoice.getConfig().addProperty("enabled", Boolean.valueOf(this.pvEnabled));
+        this.permaVoice.getConfig().addProperty("currentMode", Integer.valueOf(this.currentMode.modeId));
     }
 
     @SubscribeEvent
@@ -78,13 +102,34 @@ public class SettingsManager {
 
     @SubscribeEvent
     public void handlePress(TickEvent.ClientTickEvent event){
-
+        if (!this.isPVInitialised || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled)
+            return;
+        if (this.currentMode.equals(MODES.MUTE)) {
+            this.state = false;
+            if (Keyboard.isKeyDown(this.pvKey) && Minecraft.getMinecraft().currentScreen == null) {
+                simulateVoiceChatPress(false);
+            } else {
+                simulateVoiceChatPress(true);
+            }
+        } else if (this.currentMode.equals(MODES.TOGGLE)) {
+            if (Keyboard.isKeyDown(this.pvKey)) {
+                if (Minecraft.getMinecraft().currentScreen == null) {
+                    if(!this.isToggled){
+                        this.isToggled = true;
+                        this.state = !this.state;
+                    }
+                }
+            } else {
+                this.isToggled = false;
+            }
+            simulateVoiceChatPress(this.state);
+        }
     }
 
 
     private void simulateVoiceChatPress(boolean status){
         try {
-            voiceChatKey.set(voiceChatInstance, status);
+            this.voiceChatKey.set(this.voiceChatInstance, status);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,4 +150,53 @@ public class SettingsManager {
     public boolean isVoiceChatLoaded() {
         return isVoiceChatLoaded;
     }
+    public enum MODES {
+        MUTE(0, "Push To Mute"),
+        TOGGLE(1, "Toggle the VoiceChat");
+
+        int modeId;
+
+        String modeText;
+
+        private static MODES[] values = values();
+
+        MODES(int modeId, String modeText) {
+            this.modeId = modeId;
+            this.modeText = modeText;
+        }
+
+        static {
+            values = values();
+        }
+
+        public static MODES[] getValues() {
+            return values;
+        }
+
+        public static MODES getModeById(int modeId) {
+            MODES modes = null;
+            for (MODES mode : values) {
+                if (mode.modeId == modeId)
+                    modes = mode;
+            }
+            return modes;
+        }
+
+        public static MODES getModeByText(String modeText) {
+            MODES modes = null;
+            for (MODES mode : values) {
+                if (mode.modeText.equals(modeText))
+                    modes = mode;
+            }
+            return modes;
+        }
+
+        public static String[] getAllTexts() {
+            ArrayList<String> s = new ArrayList<>();
+            for (MODES mode : values)
+                s.add(mode.modeText);
+            return s.<String>toArray(new String[0]);
+        }
+    }
+
 }
