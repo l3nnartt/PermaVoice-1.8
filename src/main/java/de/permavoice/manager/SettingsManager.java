@@ -53,7 +53,7 @@ public class SettingsManager {
             pvEnabled = aBoolean;
             saveSettings();
         }, pvEnabled));
-        subSettings.add(new KeyElement("Key", permaVoice ,new ControlElement.IconData(new ResourceLocation("permavoice/icons/wasd.png")), "key", this.pvKey));
+        subSettings.add(new KeyElement("Hotkey", permaVoice ,new ControlElement.IconData(new ResourceLocation("permavoice/icons/wasd.png")), "key", this.pvKey));
         DropDownMenu<String> alignmentDropDownMenu = new DropDownMenu("Mode", 0, 0, 0, 0).fill(MODES.getAllTexts());
         alignmentDropDownMenu.setSelected(this.currentMode.modeText);
         DropDownElement<String> alignmentDropDown = new DropDownElement("Mode", alignmentDropDownMenu);
