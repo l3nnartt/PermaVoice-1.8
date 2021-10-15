@@ -1,28 +1,28 @@
 package de.permavoice.manager;
 
 import de.permavoice.PermaVoice;
-import de.permavoice.elements.StringElementCustom;
 import de.permavoice.elements.ButtonElement;
 import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAPI;
 import net.labymod.api.LabyModAddon;
 import net.labymod.gui.elements.DropDownMenu;
-import net.labymod.main.LabyMod;
 import net.labymod.settings.elements.*;
-import net.labymod.utils.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
+import scala.actors.threadpool.Executor;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class SettingsManager {
+public class SettingsManager implements VoiceEvent {
 
     private PermaVoice permaVoice;
     private LabyModAPI api;
@@ -44,6 +44,10 @@ public class SettingsManager {
 
     private String soundToPlay;
 
+    private int voiceLvl;
+
+
+
     public SettingsManager(PermaVoice permaVoice){
         this.permaVoice = permaVoice;
         this.api = permaVoice.api;
@@ -51,6 +55,7 @@ public class SettingsManager {
         this.isVoiceChatLoaded = false;
         api.registerForgeListener(this);
         this.isPVInitialised = false;
+
 
     }
 
@@ -80,7 +85,7 @@ public class SettingsManager {
         soundsDropDown.setChangeListener(sound -> this.soundToPlay = sound);
         subSettings.add(soundsDropDown);
         subSettings.add(new HeaderElement("§7"));
-        subSettings.add(new ButtonElement("Save Settings", new ControlElement.IconData(Material.MILK_BUCKET), "CLICK", controlElement -> {
+        subSettings.add(new ButtonElement("Save Settings", null, "CLICK", controlElement -> {
             saveSettings();
         }));
     }
@@ -97,6 +102,7 @@ public class SettingsManager {
         this.permaVoice.getConfig().addProperty("enabled", this.pvEnabled);
         this.permaVoice.getConfig().addProperty("currentMode", this.currentMode.modeId);
         this.permaVoice.getConfig().addProperty("soundToPlay", soundToPlay);
+        this.permaVoice.getConfig().addProperty("playsound", shouldPlaySound);
         this.permaVoice.saveConfig();
     }
 
@@ -110,6 +116,8 @@ public class SettingsManager {
                 if(addon.about.name.equals("VoiceChat") && addon instanceof VoiceChat){
                     voiceChatInstance = (VoiceChat) addon;
                     isVoiceChatLoaded = true;
+                    System.out.println("START");
+                    permaVoice.getVoiceActivationManager().startThread();
                     MinecraftForge.EVENT_BUS.unregister(voiceChatInstance);
                     try {
                         voiceChatKey = voiceChatInstance.getClass().getDeclaredField("pushToTalkPressed");
@@ -128,7 +136,7 @@ public class SettingsManager {
 
     @SubscribeEvent
     public void handlePress(TickEvent.ClientTickEvent event){
-        if (!this.isPVInitialised || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled || this.voiceChatInstance.isPushToTalkPressed())
+        if (!this.isVoiceChatLoaded || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled || this.voiceChatInstance.isPushToTalkPressed())
             return;
         if (this.currentMode.equals(MODES.MUTE)) {
             this.state = false;
@@ -143,21 +151,17 @@ public class SettingsManager {
                     if(!this.isToggled){
                         this.isToggled = true;
                         this.state = !this.state;
-                        if(shouldPlaySound)Minecraft.getMinecraft().thePlayer.playSound(soundToPlay, 1.0f, 1.0f);
+                        if(shouldPlaySound){
+                            Minecraft.getMinecraft().thePlayer.playSound(soundToPlay, 1.0f, 1.0f);
+                        }
                     }
                 }
             } else {
                 this.isToggled = false;
             }
             simulateVoiceChatPress(this.state);
-        }else if (this.currentMode.equals(MODES.SPEAKING)) {
-            this.state = false;
-            if(voiceChatInstance.getLastRMSLevel() >= 2000){
-                simulateVoiceChatPress(true);
-            }else {
-                simulateVoiceChatPress(false);
-            }
         }
+        permaVoice.getVoiceActivationManager().setCaptureing(this.currentMode.equals(MODES.SPEAKING));
     }
 
     private void simulateVoiceChatPress(boolean status){
@@ -182,6 +186,26 @@ public class SettingsManager {
     public MODES getCurrentMode() {
         return currentMode;
     }
+
+    @Override
+    public void onVoice(int lvl) {
+
+        api.displayMessageInChat(String.valueOf(permaVoice.getVoiceActivationManager().isCaptureing()));
+        if (!this.isVoiceChatLoaded || this.voiceChatInstance.getKeyPushToTalk() == -1 || !this.pvEnabled || this.voiceChatInstance.isPushToTalkPressed())
+            return;
+        if(this.currentMode.equals(MODES.SPEAKING)){
+            api.displayMessageInChat(lvl + "");
+            if(lvl <= 1000){
+                api.displayMessageInChat("SPEAKING");
+                simulateVoiceChatPress(true);
+            }else {
+                simulateVoiceChatPress(false);
+            }
+        }
+
+    }
+
+
     public enum MODES {
 
         MUTE(0, "Push To Mute"),
@@ -463,6 +487,5 @@ public class SettingsManager {
         sounds.add("mob.zombiepig.zpighurt");
         return sounds;
     }
-
 
 }
