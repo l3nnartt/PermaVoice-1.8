@@ -1,6 +1,6 @@
-package de.permavoice.updater;
+package com.github.l3nnartt.permavoice.updater;
 
-import de.permavoice.PermaVoice;
+import com.github.l3nnartt.permavoice.PermaVoice;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.File;
@@ -15,20 +15,20 @@ import org.apache.commons.io.IOUtils;
 
 public class UpdateChecker implements Runnable {
   public void check() {
-      try {
-        String content = getURLContent("http://permavoice.de/info.json");
-        JsonObject object = (new JsonParser()).parse(content).getAsJsonObject();
-        int serverVersion = object.get("version").getAsInt();
-        if (1 < serverVersion) {
-          System.out.println("Outdatet version of Permavoice detected, restart your Game to update");
-          File file = initFile();
-          Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://permavoice.de/Permavoice.jar", file)));
-        } else {
-          System.out.println("You run on the latest version of Permavoice");
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
+    try {
+      String content = getURLContent("http://dl.lennartloesche.de/permavoice/8/info.json");
+      JsonObject object = (new JsonParser()).parse(content).getAsJsonObject();
+      int serverVersion = object.get("version").getAsInt();
+      if (3 < serverVersion) {
+        System.out.println("[PermaVoice] Outdatet version of Bugfixes detected, restart your Game");
+        File file = initFile();
+        Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/permavoice/8/Bugfixes.jar", file)));
+      } else {
+        System.out.println("[PermaVoice] You run on the latest version of Bugfixes");
       }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public String getURLContent(String url) throws IOException {
@@ -58,10 +58,10 @@ public class UpdateChecker implements Runnable {
         File[] listFiles;
         for (int length = (listFiles = dir.listFiles()).length, i = 0; i < length; i++) {
           File f = listFiles[i];
-          if (f.getName().toLowerCase().contains("PermaVoice")) {
+          if (f.getName().toLowerCase().contains("permavoice")) {
             file = f;
             break;
-          } 
+          }
         } 
       } 
     }
