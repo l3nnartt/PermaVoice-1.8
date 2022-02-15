@@ -63,7 +63,7 @@ public class Main {
 	private static void initLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			URL url = Main.class.getResource("/assets/minecraft/PermaVoice/Logo.png");
+			URL url = Main.class.getResource("/assets/minecraft/permavoice/Logo.png");
 			icon = new ImageIcon(new ImageIcon(url).getImage().getScaledInstance(64, 64, 4));
 		} catch (Exception e) {
 			e.printStackTrace();
