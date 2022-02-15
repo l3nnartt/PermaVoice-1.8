@@ -13,14 +13,14 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class UserMenuFastActionListener implements UserMenuActionEvent {
   public void createActions(User user, EntityPlayer entityPlayer, NetworkPlayerInfo networkPlayerInfo, List<UserActionEntry> entries) {
-    if (!PermaVoice.getService().getVoiceChat().isConnected())
+    if (!PermaVoice.getInstance().getVoiceChat().isConnected())
       return; 
-    if (PermaVoice.getService().getVoiceChat().getVolume(entityPlayer.getUniqueID()) == 0) {
+    if (PermaVoice.getInstance().getVoiceChat().getVolume(entityPlayer.getUniqueID()) == 0) {
       entries.add(new UserActionEntry("[PVC] Fastunmute", UserActionEntry.EnumActionType.NONE, null, new UserActionEntry.ActionExecutor() {
           public void execute(User user, EntityPlayer entityPlayer, NetworkPlayerInfo networkPlayerInfo) {
-            PermaVoice.getService().getVoiceChat().getPlayerVolumes().remove(user.getUuid());
+            PermaVoice.getInstance().getVoiceChat().getPlayerVolumes().remove(user.getUuid());
             LabyMod.getInstance().displayMessageInChat(ModColor.cl('c') + "You unmuted " + ModColor.cl('e') + entityPlayer.getDisplayNameString() + ModColor.cl('c') + " in the voicechat!");
-            PermaVoice.getService().getVoiceChat().savePlayersVolumes();
+            PermaVoice.getInstance().getVoiceChat().savePlayersVolumes();
           }
 
           public boolean canAppear(User user, EntityPlayer entityPlayer, NetworkPlayerInfo networkPlayerInfo) {
@@ -44,7 +44,7 @@ public class UserMenuFastActionListener implements UserMenuActionEvent {
   }
   
   private void mute(UUID uuid) {
-    PermaVoice.getService().getVoiceChat().getPlayerVolumes().put(uuid, Integer.valueOf(0));
-    PermaVoice.getService().getVoiceChat().savePlayersVolumes();
+    PermaVoice.getInstance().getVoiceChat().getPlayerVolumes().put(uuid, Integer.valueOf(0));
+    PermaVoice.getInstance().getVoiceChat().savePlayersVolumes();
   }
 }

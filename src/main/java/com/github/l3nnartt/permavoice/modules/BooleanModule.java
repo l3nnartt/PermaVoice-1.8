@@ -13,7 +13,7 @@ public class BooleanModule extends SimpleModule {
   }
   
   public String getDisplayValue() {
-    if (PermaVoice.getService().getActive())
+    if (PermaVoice.getInstance().getActive())
       return "ENABLED"; 
     return "DISABLED";
   }

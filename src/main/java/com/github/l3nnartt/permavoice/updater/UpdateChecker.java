@@ -19,12 +19,12 @@ public class UpdateChecker implements Runnable {
       String content = getURLContent("http://dl.lennartloesche.de/permavoice/8/info.json");
       JsonObject object = (new JsonParser()).parse(content).getAsJsonObject();
       int serverVersion = object.get("version").getAsInt();
-      if (3 < serverVersion) {
-        System.out.println("[PermaVoice] Outdatet version of Bugfixes detected, restart your Game");
+      if (1 < serverVersion) {
+        System.out.println("[PermaVoice] Outdated version of Bugfixes detected, restart your Game");
         File file = initFile();
-        Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/permavoice/8/Bugfixes.jar", file)));
+        Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/permavoice/8/PermaVoice.jar", file)));
       } else {
-        System.out.println("[PermaVoice] You run on the latest version of Bugfixes");
+        System.out.println("[PermaVoice] You run on the latest version of PermaVoice");
       }
     } catch (IOException e) {
       e.printStackTrace();

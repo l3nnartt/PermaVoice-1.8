@@ -2,8 +2,6 @@ package com.github.l3nnartt.permavoice.listener;
 
 import com.github.l3nnartt.permavoice.PermaVoice;
 import java.lang.reflect.Field;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
@@ -23,73 +21,65 @@ public class PermaVoiceTickListener {
   
   @SubscribeEvent
   public void onTick(TickEvent.ClientTickEvent event) {
-    if (!PermaVoice.getService().isInit()) {
+    if (!PermaVoice.getInstance().isInit()) {
       for (LabyModAddon addon : AddonLoader.getAddons()) {
         if (addon == null || addon.about == null || addon.about.name == null)
-          continue; 
-        if (addon.about.name.equals("CosmeticsMod")) {
-          PermaVoice.getService().setCosmeticsMod(true);
-          System.out.println("Mod found!");
-        } 
+          continue;
         if (addon.about.name.equals("VoiceChat") && addon instanceof VoiceChat) {
-          PermaVoice.getService().setVoiceChat((VoiceChat)addon);
-          PermaVoice.getService().setFound(true);
-          MinecraftForge.EVENT_BUS.unregister(PermaVoice.getService().getVoiceChat());
+          PermaVoice.getInstance().setVoiceChat((VoiceChat)addon);
+          PermaVoice.getInstance().setFound(true);
+          MinecraftForge.EVENT_BUS.unregister(PermaVoice.getInstance().getVoiceChat());
           try {
-            this.fieldPress = PermaVoice.getService().getVoiceChat().getClass().getDeclaredField("pushToTalkPressed");
+            this.fieldPress = PermaVoice.getInstance().getVoiceChat().getClass().getDeclaredField("pushToTalkPressed");
             this.fieldPress.setAccessible(true);
-            this.fieldTest = PermaVoice.getService().getVoiceChat().getClass().getDeclaredField("testingMicrophone");
+            this.fieldTest = PermaVoice.getInstance().getVoiceChat().getClass().getDeclaredField("testingMicrophone");
             this.fieldTest.setAccessible(true);
           } catch (Exception ex) {
             ex.printStackTrace();
           } 
         } 
       } 
-      PermaVoice.getService().setInit(true);
+      PermaVoice.getInstance().setInit(true);
     } 
-    if (!PermaVoice.getService().isFound())
+    if (!PermaVoice.getInstance().isFound())
       return; 
-    PermaVoice.getService().getVoiceChat().onTick(event);
-    if (PermaVoice.getService().getVoiceChat().getKeyPushToTalk() == -1 || !PermaVoice.getService().isEnabled())
+    PermaVoice.getInstance().getVoiceChat().onTick(event);
+    if (PermaVoice.getInstance().getVoiceChat().getKeyPushToTalk() == -1 || !PermaVoice.getInstance().isEnabled())
       return; 
-    if (PermaVoice.getService().isActive() && !PermaVoice.getService().getVoiceChat().isPushToTalkPressed() && 
-      !PermaVoice.getService().getNoiseReduction().isNoiseReduction())
+    if (PermaVoice.getInstance().isActive() && !PermaVoice.getInstance().getVoiceChat().isPushToTalkPressed() &&
+      !PermaVoice.getInstance().getNoiseReduction().isNoiseReduction())
       setPressed(true); 
-    if (PermaVoice.getService().getKey() == -1)
+    if (PermaVoice.getInstance().getKey() == -1)
       return; 
-    if (Keyboard.isKeyDown(PermaVoice.getService().getKey())) {
+    if (Keyboard.isKeyDown(PermaVoice.getInstance().getKey())) {
       if ((Minecraft.getMinecraft()) == null &&
         !this.togglePressed) {
         this.togglePressed = true;
-        PermaVoice.getService().setActive(!PermaVoice.getService().getActive());
+        PermaVoice.getInstance().setActive(!PermaVoice.getInstance().getActive());
         setCurrentStatus(!isCurrentStatus());
-        if (PermaVoice.getService().isChatMessages())
-          LabyMod.getInstance().getLabyModAPI().displayMessageInChat("§ePermaVoice §8» §e"+ (PermaVoice.getService().getActive() ? "§aON" : "§cOFF"));
-        if (PermaVoice.getService().getNoiseReduction().isNoiseReduction())
-          if (PermaVoice.getService().isActive()) {
-            PermaVoice.getService().setCurrentStateOfVoice(true);
+        if (PermaVoice.getInstance().isChatMessages())
+          LabyMod.getInstance().getLabyModAPI().displayMessageInChat("§ePermaVoice §8» §e"+ (PermaVoice.getInstance().getActive() ? "§aON" : "§cOFF"));
+        if (PermaVoice.getInstance().getNoiseReduction().isNoiseReduction())
+          if (PermaVoice.getInstance().isActive()) {
+            PermaVoice.getInstance().setCurrentStateOfVoice(true);
           } else {
-            PermaVoice.getService().setCurrentStateOfVoice(false);
-          }  
+            PermaVoice.getInstance().setCurrentStateOfVoice(false);
+          }
       } 
     } else {
       this.togglePressed = false;
     } 
-    if (!PermaVoice.getService().isInitThread() && 
-      PermaVoice.getService().getNoiseReduction().isNoiseReduction() && 
-      PermaVoice.getService().getVoiceChat().isConnected()) {
-      PermaVoice.getService().setInitThread(true);
-      ScheduledExecutorService exservice = Executors.newSingleThreadScheduledExecutor();
-      exservice.execute(() -> {
-          
-          });
+    if (!PermaVoice.getInstance().isInitThread() &&
+      PermaVoice.getInstance().getNoiseReduction().isNoiseReduction() &&
+      PermaVoice.getInstance().getVoiceChat().isConnected()) {
+      PermaVoice.getInstance().setInitThread(true);
     } 
   }
   
   public void setPressed(boolean mode) {
     try {
-      PermaVoice.getService().setActive(mode);
-      this.fieldPress.set(PermaVoice.getService().getVoiceChat(), Boolean.valueOf(mode));
+      PermaVoice.getInstance().setActive(mode);
+      this.fieldPress.set(PermaVoice.getInstance().getVoiceChat(), mode);
     } catch (Exception e) {
       e.printStackTrace();
     } 
@@ -97,7 +87,7 @@ public class PermaVoiceTickListener {
   
   public void setVoicePressed(boolean mode) {
     try {
-      this.fieldPress.set(PermaVoice.getService().getVoiceChat(), Boolean.valueOf(mode));
+      this.fieldPress.set(PermaVoice.getInstance().getVoiceChat(), mode);
     } catch (Exception e) {
       e.printStackTrace();
     } 
@@ -117,7 +107,7 @@ public class PermaVoiceTickListener {
   
   public void setFieldTest(boolean mode) {
     try {
-      this.fieldTest.set(PermaVoice.getService().getVoiceChat(), Boolean.valueOf(mode));
+      this.fieldTest.set(PermaVoice.getInstance().getVoiceChat(), mode);
     } catch (Exception e) {
       e.printStackTrace();
     } 

@@ -16,31 +16,31 @@ public class NoiseReduction {
   
   public void startThread() {
     this.exService.scheduleAtFixedRate(() -> {
-      if (PermaVoice.getService().getNoiseReduction().isNoiseReduction())
-        if (PermaVoice.getService().getPermaVoiceTickListener().isCurrentStatus()) {
-          int bufferInSize = PermaVoice.getService().getVoiceChat().getOpusCodecManager().getBufferInSize();
+      if (PermaVoice.getInstance().getNoiseReduction().isNoiseReduction())
+        if (PermaVoice.getInstance().getPermaVoiceTickListener().isCurrentStatus()) {
+          int bufferInSize = PermaVoice.getInstance().getVoiceChat().getOpusCodecManager().getBufferInSize();
           byte[] data = new byte[bufferInSize];
-          PermaVoice.getService().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
+          PermaVoice.getInstance().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
           int rmslevel = AudioModifier.calculateRMSLevel(data);
           if (rmslevel < this.noiseReductionValue) {
-            PermaVoice.getService().getPermaVoiceTickListener().setVoicePressed(false);
+            PermaVoice.getInstance().getPermaVoiceTickListener().setVoicePressed(false);
           } else {
-            PermaVoice.getService().getPermaVoiceTickListener().setVoicePressed(true);
+            PermaVoice.getInstance().getPermaVoiceTickListener().setVoicePressed(true);
           }
-        } else if (PermaVoice.getService().isRepeatVoice()) {
-          PermaVoice.getService().getPermaVoiceTickListener().setFieldTest(true);
-          int bufferInSize = PermaVoice.getService().getVoiceChat().getOpusCodecManager().getBufferInSize();
+        } else if (PermaVoice.getInstance().isRepeatVoice()) {
+          PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(true);
+          int bufferInSize = PermaVoice.getInstance().getVoiceChat().getOpusCodecManager().getBufferInSize();
           byte[] data = new byte[bufferInSize];
-          PermaVoice.getService().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
+          PermaVoice.getInstance().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
           int rmslevel = AudioModifier.calculateRMSLevel(data);
           this.noiseReductionValueGUI = rmslevel;
           if (this.noiseReductionValueGUI / Utils.voicedetectionMFactor > 100) {
-            PermaVoice.getService().getHeaderElement().setDisplayName(ModColor.cl('a') + "Your VoiceChat Volume " + ModColor.cl('c') + (this.noiseReductionValueGUI / Utils.voicedetectionMFactor));
+            PermaVoice.getInstance().getHeaderElement().setDisplayName(ModColor.cl('a') + "Your VoiceChat Volume " + ModColor.cl('c') + (this.noiseReductionValueGUI / Utils.voicedetectionMFactor));
           } else {
-            PermaVoice.getService().getHeaderElement().setDisplayName(ModColor.cl('a') + "Your VoiceChat Volume " + (this.noiseReductionValueGUI / Utils.voicedetectionMFactor));
+            PermaVoice.getInstance().getHeaderElement().setDisplayName(ModColor.cl('a') + "Your VoiceChat Volume " + (this.noiseReductionValueGUI / Utils.voicedetectionMFactor));
           }
         } else {
-          PermaVoice.getService().getPermaVoiceTickListener().setFieldTest(false);
+          PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(false);
         }
     }, 0L, 5L, TimeUnit.MILLISECONDS);
   }

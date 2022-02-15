@@ -11,9 +11,9 @@ public class GuiOpenListener {
   public void onGuiOpenEvent(GuiOpenEvent event) {
     if (event.gui instanceof net.labymod.settings.LabyModAddonsGui) {
       this.addonGui = true;
-    } else if (PermaVoice.getService().isInit() && PermaVoice.getService().isInitThread()) {
+    } else if (PermaVoice.getInstance().isInit() && PermaVoice.getInstance().isInitThread()) {
       this.addonGui = false;
-      PermaVoice.getService().getPermaVoiceTickListener().setFieldTest(false);
+      PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(false);
     } 
   }
   
