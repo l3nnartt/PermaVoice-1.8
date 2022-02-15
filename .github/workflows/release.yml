@@ -1,14 +1,11 @@
-name: build addon
+name: Build Addon & Create Release
 
 on:
   push:
     branches:
-    - master
     - main
-    - test
   pull_request:
     branches:
-    - master
     - main
 
 jobs:
@@ -41,3 +38,17 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
+
+      - name: Create Tag
+        uses: mathieudutour/github-tag-action@v6.0
+        id: tag_version
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          artifacts: "build/libs/PermaVoice.jar"
+          token: ${{ secrets.GITHUB_TOKEN }}
