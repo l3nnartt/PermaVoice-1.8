@@ -3,6 +3,7 @@ package com.github.l3nnartt.permavoice.gui;
 import net.labymod.settings.SettingsCategory;
 
 public class CategoryElement extends SettingsCategory {
+
   private String modTitle;
   
   public CategoryElement(String title) {

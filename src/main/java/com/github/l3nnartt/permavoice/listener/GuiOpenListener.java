@@ -5,6 +5,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GuiOpenListener {
+
   private boolean addonGui;
   
   @SubscribeEvent

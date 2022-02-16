@@ -1,4 +1,4 @@
-package com.github.l3nnartt.permavoice.noisereduction;
+package com.github.l3nnartt.permavoice.utils;
 
 import com.github.l3nnartt.permavoice.PermaVoice;
 import java.util.concurrent.Executors;
@@ -44,24 +44,8 @@ public class NoiseReduction {
         }
     }, 0L, 5L, TimeUnit.MILLISECONDS);
   }
-  
-  public void setNoiseReductionState(boolean noiseReductionState) {
-    this.noiseReductionState = noiseReductionState;
-  }
-  
-  public void setNoiseReductionValue(int noiseReductionValue) {
-    this.noiseReductionValue = noiseReductionValue;
-  }
-  
-  public int getNoiseReductionValue() {
-    return this.noiseReductionValue;
-  }
-  
+
   public boolean isNoiseReduction() {
     return this.noiseReductionState;
-  }
-  
-  public int getNoiseReductionValueGUI() {
-    return this.noiseReductionValueGUI;
   }
 }

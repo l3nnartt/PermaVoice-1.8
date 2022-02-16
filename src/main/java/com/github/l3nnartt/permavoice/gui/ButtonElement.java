@@ -1,15 +1,13 @@
 package com.github.l3nnartt.permavoice.gui;
 
 import net.labymod.core.LabyModCore;
-import net.labymod.settings.SettingsCategory;
 import net.labymod.settings.elements.CategorySettingsElement;
 import net.labymod.settings.elements.SettingsElement;
 
 public class ButtonElement extends CategorySettingsElement {
+
   private int length;
-  
   private int x;
-  
   private int y;
   
   public ButtonElement(String title, Runnable callback) {

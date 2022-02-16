@@ -1,4 +1,4 @@
-package com.github.l3nnartt.permavoice.modules;
+package com.github.l3nnartt.permavoice.utils;
 
 import com.github.l3nnartt.permavoice.PermaVoice;
 import net.labymod.ingamegui.ModuleCategory;
@@ -8,6 +8,7 @@ import net.labymod.settings.elements.ControlElement;
 import net.labymod.utils.Material;
 
 public class BooleanModule extends SimpleModule {
+
   public String getDisplayName() {
     return "PermaVoice";
   }
