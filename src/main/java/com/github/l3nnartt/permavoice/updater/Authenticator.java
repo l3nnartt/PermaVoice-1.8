@@ -1,5 +1,6 @@
 package com.github.l3nnartt.permavoice.updater;
 
+import com.github.l3nnartt.permavoice.PermaVoice;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import net.labymod.main.LabyMod;
 import net.minecraft.client.Minecraft;
@@ -30,9 +31,9 @@ public class Authenticator implements Runnable {
             con.connect();
             int code = con.getResponseCode();
             if (code == 200) {
-                System.out.println("[PermaVoice] Request successful");
+                PermaVoice.getLogger("Request successful");
             } else {
-                System.out.println("[PermaVoice] FEHLERCODE: " + code);
+                PermaVoice.getLogger("Request failed. Errorcode: " + code);
             }
         } catch (Exception e) {
             e.printStackTrace();

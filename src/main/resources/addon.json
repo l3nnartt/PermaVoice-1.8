@@ -3,7 +3,7 @@
   "name": "PermaVoice",
   "mainClass": "com.github.l3nnartt.permavoice.PermaVoice",
   "description": "This addon allows you to talk in the LabyMod VoiceChat continuously!",
-  "version": 1,
+  "version": 2,
   "author": "L3nnart_",
   "category": 2,
   "icon": "https://dl.lennartloesche.de/permavoice/logo.png"

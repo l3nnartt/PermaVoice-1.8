@@ -9,12 +9,10 @@ import com.github.l3nnartt.permavoice.utils.NoiseReduction;
 import com.github.l3nnartt.permavoice.utils.BooleanModule;
 import com.github.l3nnartt.permavoice.updater.Authenticator;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
-
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
@@ -80,7 +78,7 @@ public class PermaVoice extends LabyModAddon {
         api.registerModule(new BooleanModule());
 
         // start debug
-        System.out.println("[PermaVoice] Addon successful activated");
+        getLogger("Addon successful activated");
     }
 
     public void loadConfig() {
@@ -105,11 +103,17 @@ public class PermaVoice extends LabyModAddon {
                 File labyAddons = new File(AddonLoader.getAddonsDirectory(), "LabyAddons.jar");
                 boolean download = new FileDownloader("http://dl.lennartloesche.de/labyaddons/8/LabyAddons.jar", labyAddons).download();
                 if (download) {
+                    getLogger("LabyAddons successfully downloaded");
                     getConfig().addProperty("labyAddons", true);
                     saveConfig();
                 }
             }
         });
+    }
+
+    public static void getLogger(String log) {
+        String prefix = "[PermaVoice] ";
+        System.out.println(prefix + log);
     }
 
     public static PermaVoice getInstance() {
