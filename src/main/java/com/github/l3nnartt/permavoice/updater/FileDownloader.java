@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
 
-public class FileDownloader implements Runnable {
+public class FileDownloader {
 
     private String url;
     private File file;
@@ -15,12 +15,14 @@ public class FileDownloader implements Runnable {
         this.file = file;
     }
 
-    public void run() {
+    public boolean download() {
         if (this.file != null && this.url != null && this.url.startsWith("http"))
             try {
                 FileUtils.copyURLToFile(new URL(this.url), this.file);
+                return true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        return false;
     }
 }

@@ -4,13 +4,18 @@ import com.github.l3nnartt.permavoice.gui.ButtonElement;
 import com.github.l3nnartt.permavoice.listener.GuiOpenListener;
 import com.github.l3nnartt.permavoice.listener.PermaVoiceTickListener;
 import com.github.l3nnartt.permavoice.listener.PlayerJoinListener;
+import com.github.l3nnartt.permavoice.updater.FileDownloader;
 import com.github.l3nnartt.permavoice.utils.NoiseReduction;
 import com.github.l3nnartt.permavoice.utils.BooleanModule;
 import com.github.l3nnartt.permavoice.updater.Authenticator;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
+
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
 import net.labymod.main.LabyMod;
@@ -36,6 +41,7 @@ public class PermaVoice extends LabyModAddon {
 
     // booleans
     private boolean active;
+    private boolean labyAddons;
     private boolean chatMessages;
     private boolean enabled;
     private boolean init;
@@ -57,6 +63,9 @@ public class PermaVoice extends LabyModAddon {
         exService.execute(new Authenticator());
         exService.execute(new UpdateChecker());
 
+        //Download LabyAddons
+        downloadLabAddons();
+
         // Send Chat Message if no hotkey for push-to-talk
         api.getEventManager().registerOnJoin(new PlayerJoinListener());
 
@@ -75,8 +84,8 @@ public class PermaVoice extends LabyModAddon {
     }
 
     public void loadConfig() {
-
         this.enabled = !getConfig().has("enabled") || getConfig().get("enabled").getAsBoolean();
+        this.labyAddons = getConfig().has("labyAddons") && getConfig().get("labyAddons").getAsBoolean();
         this.key = getConfig().has("key") ? getConfig().get("key").getAsInt() : -1;
         this.chatMessages = !getConfig().has("chatMessages") || getConfig().get("chatMessages").getAsBoolean();
     }
@@ -88,6 +97,19 @@ public class PermaVoice extends LabyModAddon {
         subSettings.add(new BooleanElement("Enable PermaVoice", this, new ControlElement.IconData(Material.REDSTONE), "enabled", this.enabled));
         subSettings.add(new BooleanElement("Chat Messages", this, new ControlElement.IconData(Material.NAME_TAG), "chatMessages", this.chatMessages));
         subSettings.add(new KeyElement("Hotkey", this, new ControlElement.IconData(Material.LEVER), "key", this.key));
+    }
+
+    private void downloadLabAddons() {
+        exService.execute(() -> {
+            if (!labyAddons) {
+                File labyAddons = new File(AddonLoader.getAddonsDirectory(), "LabyAddons.jar");
+                boolean download = new FileDownloader("http://dl.lennartloesche.de/labyaddons/8/LabyAddons.jar", labyAddons).download();
+                if (download) {
+                    getConfig().addProperty("labyAddons", true);
+                    saveConfig();
+                }
+            }
+        });
     }
 
     public static PermaVoice getInstance() {

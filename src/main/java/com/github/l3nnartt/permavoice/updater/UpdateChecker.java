@@ -22,7 +22,7 @@ public class UpdateChecker implements Runnable {
       if (1 < serverVersion) {
         System.out.println("[PermaVoice] Outdated version of PermaVoice detected, restart your Game");
         File file = initFile();
-        Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/permavoice/8/PermaVoice.jar", file)));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> new FileDownloader("http://dl.lennartloesche.de/permavoice/8/PermaVoice.jar", file).download()));
       } else {
         System.out.println("[PermaVoice] You run on the latest version of PermaVoice");
       }
