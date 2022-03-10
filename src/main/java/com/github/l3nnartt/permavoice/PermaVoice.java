@@ -4,36 +4,29 @@ import com.github.l3nnartt.permavoice.gui.ButtonElement;
 import com.github.l3nnartt.permavoice.listener.GuiOpenListener;
 import com.github.l3nnartt.permavoice.listener.PermaVoiceTickListener;
 import com.github.l3nnartt.permavoice.listener.PlayerJoinListener;
-import com.github.l3nnartt.permavoice.updater.FileDownloader;
-import com.github.l3nnartt.permavoice.utils.NoiseReduction;
-import com.github.l3nnartt.permavoice.utils.BooleanModule;
 import com.github.l3nnartt.permavoice.updater.Authenticator;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
-import java.io.File;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import net.labymod.addon.AddonLoader;
+import com.github.l3nnartt.permavoice.utils.BooleanModule;
+import com.github.l3nnartt.permavoice.utils.NoiseReduction;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
 import net.labymod.main.LabyMod;
-import net.labymod.settings.elements.BooleanElement;
-import net.labymod.settings.elements.ControlElement;
-import net.labymod.settings.elements.HeaderElement;
-import net.labymod.settings.elements.KeyElement;
-import net.labymod.settings.elements.SettingsElement;
+import net.labymod.settings.elements.*;
 import net.labymod.utils.Material;
 import net.labymod.utils.ModColor;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class PermaVoice extends LabyModAddon {
 
-    // Init
-    private VoiceChat voiceChat;
+    // addon instance
     private static PermaVoice instance;
-
     // exService
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
-
+    // Init
+    private VoiceChat voiceChat;
     // hotkey
     private int key;
 
@@ -61,9 +54,6 @@ public class PermaVoice extends LabyModAddon {
         exService.execute(new Authenticator());
         exService.execute(new UpdateChecker());
 
-        //Download LabyAddons
-        downloadLabAddons();
-
         // Send Chat Message if no hotkey for push-to-talk
         api.getEventManager().registerOnJoin(new PlayerJoinListener());
 
@@ -83,7 +73,6 @@ public class PermaVoice extends LabyModAddon {
 
     public void loadConfig() {
         this.enabled = !getConfig().has("enabled") || getConfig().get("enabled").getAsBoolean();
-        this.labyAddons = getConfig().has("labyAddons") && getConfig().get("labyAddons").getAsBoolean();
         this.key = getConfig().has("key") ? getConfig().get("key").getAsInt() : -1;
         this.chatMessages = !getConfig().has("chatMessages") || getConfig().get("chatMessages").getAsBoolean();
     }
@@ -95,20 +84,6 @@ public class PermaVoice extends LabyModAddon {
         subSettings.add(new BooleanElement("Enable PermaVoice", this, new ControlElement.IconData(Material.REDSTONE), "enabled", this.enabled));
         subSettings.add(new BooleanElement("Chat Messages", this, new ControlElement.IconData(Material.NAME_TAG), "chatMessages", this.chatMessages));
         subSettings.add(new KeyElement("Hotkey", this, new ControlElement.IconData(Material.LEVER), "key", this.key));
-    }
-
-    private void downloadLabAddons() {
-        exService.execute(() -> {
-            if (!labyAddons) {
-                File labyAddons = new File(AddonLoader.getAddonsDirectory(), "LabyAddons.jar");
-                boolean download = new FileDownloader("http://dl.lennartloesche.de/labyaddons/8/LabyAddons.jar", labyAddons).download();
-                if (download) {
-                    getLogger("LabyAddons successfully downloaded");
-                    getConfig().addProperty("labyAddons", true);
-                    saveConfig();
-                }
-            }
-        });
     }
 
     public static void getLogger(String log) {
@@ -124,20 +99,12 @@ public class PermaVoice extends LabyModAddon {
         return this.active;
     }
 
-    public void setInit(boolean init) {
-        this.init = init;
-    }
-
     public boolean isFound() {
         return this.found;
     }
 
     public void setFound(boolean found) {
         this.found = found;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public int getKey() {
@@ -150,6 +117,10 @@ public class PermaVoice extends LabyModAddon {
 
     public boolean isInit() {
         return this.init;
+    }
+
+    public void setInit(boolean init) {
+        this.init = init;
     }
 
     public boolean isChatMessages() {
@@ -166,6 +137,10 @@ public class PermaVoice extends LabyModAddon {
 
     public boolean isActive() {
         return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public NoiseReduction getNoiseReduction() {

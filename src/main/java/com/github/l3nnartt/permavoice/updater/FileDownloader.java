@@ -1,14 +1,15 @@
 package com.github.l3nnartt.permavoice.updater;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import org.apache.commons.io.FileUtils;
 
 public class FileDownloader {
 
-    private String url;
-    private File file;
+    private final String url;
+    private final File file;
 
     public FileDownloader(String url, File file) {
         this.url = url;

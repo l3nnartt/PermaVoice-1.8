@@ -5,6 +5,7 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import net.labymod.main.LabyMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
