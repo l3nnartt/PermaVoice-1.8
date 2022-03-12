@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public class NoiseReduction {
 
+    private final ScheduledExecutorService exService = Executors.newSingleThreadScheduledExecutor();
     private boolean noiseReductionState;
     private int noiseReductionValue;
     private int noiseReductionValueGUI;
-    private final ScheduledExecutorService exService = Executors.newSingleThreadScheduledExecutor();
 
     public void startThread() {
         this.exService.scheduleAtFixedRate(() -> {
@@ -23,14 +23,13 @@ public class NoiseReduction {
                     byte[] data = new byte[bufferInSize];
                     PermaVoice.getInstance().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
                     int rmslevel = AudioModifier.calculateRMSLevel(data);
-                  PermaVoice.getInstance().getPermaVoiceTickListener().setVoicePressed(rmslevel >= this.noiseReductionValue);
+                    PermaVoice.getInstance().getPermaVoiceTickListener().setVoicePressed(rmslevel >= this.noiseReductionValue);
                 } else if (PermaVoice.getInstance().isRepeatVoice()) {
                     PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(true);
                     int bufferInSize = PermaVoice.getInstance().getVoiceChat().getOpusCodecManager().getBufferInSize();
                     byte[] data = new byte[bufferInSize];
                     PermaVoice.getInstance().getVoiceChat().getMicrophone().getTargetDataLine().read(data, 0, bufferInSize);
-                    int rmslevel = AudioModifier.calculateRMSLevel(data);
-                    this.noiseReductionValueGUI = rmslevel;
+                    this.noiseReductionValueGUI = AudioModifier.calculateRMSLevel(data);
                     if (this.noiseReductionValueGUI / Utils.voicedetectionMFactor > 100) {
                         PermaVoice.getInstance().getHeaderElement().setDisplayName(ModColor.cl('a') + "Your VoiceChat Volume " + ModColor.cl('c') + (this.noiseReductionValueGUI / Utils.voicedetectionMFactor));
                     } else {
