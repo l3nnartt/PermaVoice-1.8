@@ -23,3 +23,4 @@ gradlew build
 ```
 -Dfml.coreMods.load=net.labymod.core.asm.LabyModCoreMod -DdebugMode=true -Daddonresources=addon.json
 ```
+For more information you can check out the LabyMod [documentation](https://docs.labymod.net/pages/create-addons/introduction/).
