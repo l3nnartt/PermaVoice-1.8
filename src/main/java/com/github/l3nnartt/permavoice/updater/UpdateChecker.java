@@ -58,12 +58,12 @@ public class UpdateChecker implements Runnable {
 
     public void check() {
         try {
-            // Get Server Version
+            // Get server version
             String serverContent = getURLContent("http://dl.lennartloesche.de/permavoice/8/info.json");
             JsonObject object = (new JsonParser()).parse(serverContent).getAsJsonObject();
             int serverVersion = object.get("version").getAsInt();
 
-            // Get Addon Version
+            // Get addon version
             URLConnection urlConnection = PermaVoice.class.getProtectionDomain().getCodeSource().getLocation().openConnection();
             File addonFile = new File(((JarURLConnection) urlConnection).getJarFileURL().getPath());
             JarFile jarFile = new JarFile(addonFile);
@@ -74,6 +74,7 @@ public class UpdateChecker implements Runnable {
             jarFile.close();
 
             if (addonVersion < serverVersion) {
+                PermaVoice.getInstance().setUpdateAvailable(true);
                 PermaVoice.getLogger("Outdated version of PermaVoice detected, restart your Game");
                 File file = initFile();
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> new FileDownloader("http://dl.lennartloesche.de/permavoice/8/PermaVoice.jar", file).download()));
