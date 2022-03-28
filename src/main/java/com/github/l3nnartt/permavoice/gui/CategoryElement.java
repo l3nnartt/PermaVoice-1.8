@@ -4,7 +4,7 @@ import net.labymod.settings.SettingsCategory;
 
 public class CategoryElement extends SettingsCategory {
 
-    private String modTitle;
+    private final String modTitle;
 
     public CategoryElement(String title) {
         super(title);
@@ -13,9 +13,5 @@ public class CategoryElement extends SettingsCategory {
 
     public String getTitle() {
         return this.modTitle;
-    }
-
-    public void setTitle(String title) {
-        this.modTitle = title;
     }
 }

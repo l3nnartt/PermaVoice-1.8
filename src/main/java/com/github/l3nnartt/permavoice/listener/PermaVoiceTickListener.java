@@ -82,24 +82,12 @@ public class PermaVoiceTickListener {
         }
     }
 
-    public void setVoicePressed(boolean mode) {
-        try {
-            fieldPress.set(PermaVoice.getInstance().getVoiceChat(), mode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean isCurrentStatus() {
         return currentStatus;
     }
 
     public void setCurrentStatus(boolean currentStatus) {
         this.currentStatus = currentStatus;
-    }
-
-    public Field getFieldTest() {
-        return fieldTest;
     }
 
     public void setFieldTest(boolean mode) {

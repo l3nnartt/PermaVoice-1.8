@@ -172,14 +172,6 @@ public class PermaVoice extends LabyModAddon {
         return this.initThread;
     }
 
-    public boolean isRepeatVoice() {
-        return this.repeatVoice;
-    }
-
-    public HeaderElement getHeaderElement() {
-        return this.headerElement;
-    }
-
     public boolean isUpdateAvailable() {
         return updateAvailable;
     }
