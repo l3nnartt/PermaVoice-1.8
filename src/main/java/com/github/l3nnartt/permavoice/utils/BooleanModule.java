@@ -28,6 +28,7 @@ public class BooleanModule extends SimpleModule {
     }
 
     public void loadSettings() {
+
     }
 
     public String getSettingName() {
