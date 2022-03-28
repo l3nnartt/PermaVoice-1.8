@@ -8,7 +8,6 @@ import com.github.l3nnartt.permavoice.updater.Authenticator;
 import com.github.l3nnartt.permavoice.updater.FileDownloader;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
 import com.github.l3nnartt.permavoice.utils.BooleanModule;
-import com.github.l3nnartt.permavoice.utils.NoiseReduction;
 import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
@@ -21,11 +20,16 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 public class PermaVoice extends LabyModAddon {
 
     // Addon instance
     private static PermaVoice instance;
+
+    // Logger
+    private static final Logger LOGGER = Logger.getLogger("PermaVoice");
+    private static final String PREFIX = "[PermaVoice] ";
 
     // exService
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
@@ -43,13 +47,9 @@ public class PermaVoice extends LabyModAddon {
     private boolean enabled;
     private boolean init;
     private boolean found;
-    private boolean repeatVoice;
-    private boolean currentStateOfVoice;
-    private boolean initThread;
     private boolean updateAvailable;
 
     // Util
-    private NoiseReduction noiseReduction;
     private HeaderElement headerElement;
     private PermaVoiceTickListener permaVoiceTickListener;
 
@@ -67,9 +67,6 @@ public class PermaVoice extends LabyModAddon {
         // Register forge listener
         api.registerForgeListener(new GuiOpenListener());
         api.registerForgeListener(this.permaVoiceTickListener = new PermaVoiceTickListener());
-
-        // NoiseReduction
-        this.noiseReduction = new NoiseReduction();
 
         // Register module
         api.registerModule(new BooleanModule());
@@ -113,8 +110,7 @@ public class PermaVoice extends LabyModAddon {
     }
 
     public static void getLogger(String log) {
-        String prefix = "[PermaVoice] ";
-        System.out.println(prefix + log);
+        LOGGER.info(PREFIX + log);
     }
 
     public static PermaVoice getInstance() {
@@ -169,24 +165,8 @@ public class PermaVoice extends LabyModAddon {
         this.active = active;
     }
 
-    public NoiseReduction getNoiseReduction() {
-        return this.noiseReduction;
-    }
-
     public PermaVoiceTickListener getPermaVoiceTickListener() {
         return this.permaVoiceTickListener;
-    }
-
-    public boolean isInitThread() {
-        return this.initThread;
-    }
-
-    public boolean isRepeatVoice() {
-        return this.repeatVoice;
-    }
-
-    public HeaderElement getHeaderElement() {
-        return this.headerElement;
     }
 
     public boolean isUpdateAvailable() {

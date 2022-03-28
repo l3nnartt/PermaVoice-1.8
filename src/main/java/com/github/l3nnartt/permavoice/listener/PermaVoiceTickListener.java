@@ -51,9 +51,7 @@ public class PermaVoiceTickListener {
             return;
         }
         if (PermaVoice.getInstance().isActive() && !PermaVoice.getInstance().getVoiceChat().isPushToTalkPressed()) {
-            if (!PermaVoice.getInstance().getNoiseReduction().isNoiseReduction()) {
-                setPressed(true);
-            }
+            setPressed(true);
         }
 
         if (PermaVoice.getInstance().getKey() == -1) {
@@ -84,24 +82,12 @@ public class PermaVoiceTickListener {
         }
     }
 
-    public void setVoicePressed(boolean mode) {
-        try {
-            fieldPress.set(PermaVoice.getInstance().getVoiceChat(), mode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean isCurrentStatus() {
         return currentStatus;
     }
 
     public void setCurrentStatus(boolean currentStatus) {
         this.currentStatus = currentStatus;
-    }
-
-    public Field getFieldTest() {
-        return fieldTest;
     }
 
     public void setFieldTest(boolean mode) {

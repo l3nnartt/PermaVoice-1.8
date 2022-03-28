@@ -17,21 +17,6 @@ public class ButtonElement extends CategorySettingsElement {
         });
     }
 
-    public ButtonElement setLength(int length) {
-        this.length = length;
-        return this;
-    }
-
-    public ButtonElement addX(int x) {
-        this.x = x;
-        return this;
-    }
-
-    public ButtonElement addY(int y) {
-        this.y = y;
-        return this;
-    }
-
     public void draw(int x, int y, int maxX, int maxY, int mouseX, int mouseY) {
         if (this.length != 0) {
             maxX = x + this.x + this.length;
