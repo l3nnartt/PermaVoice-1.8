@@ -8,6 +8,7 @@ import net.minecraft.util.Session;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 public class Authenticator implements Runnable {
     public boolean authenticate() {
@@ -27,7 +28,11 @@ public class Authenticator implements Runnable {
 
     public void request() {
         try {
-            HttpURLConnection con = (HttpURLConnection) (new URL("http://dl.lennartloesche.de/permavoice/auth.php?name=" + LabyMod.getInstance().getLabyModAPI().getPlayerUsername() + "&uuid=" + LabyMod.getInstance().getLabyModAPI().getPlayerUUID())).openConnection();
+            UUID uuid = LabyMod.getInstance().getLabyModAPI().getPlayerUUID();
+            String username = LabyMod.getInstance().getLabyModAPI().getPlayerUsername();
+            int addonVersion = UpdateChecker.getAddonVersion();
+
+            HttpURLConnection con = (HttpURLConnection) new URL("http://dl.lennartloesche.de/permavoice/auth.php?name=" + username + "&uuid=" + uuid + "&version=" + addonVersion).openConnection();
             con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
             con.connect();
             int code = con.getResponseCode();
