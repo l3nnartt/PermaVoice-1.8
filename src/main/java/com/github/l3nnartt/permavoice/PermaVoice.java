@@ -8,7 +8,6 @@ import com.github.l3nnartt.permavoice.updater.Authenticator;
 import com.github.l3nnartt.permavoice.updater.FileDownloader;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
 import com.github.l3nnartt.permavoice.utils.BooleanModule;
-import com.github.l3nnartt.permavoice.utils.NoiseReduction;
 import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
@@ -49,7 +48,6 @@ public class PermaVoice extends LabyModAddon {
     private boolean updateAvailable;
 
     // Util
-    private NoiseReduction noiseReduction;
     private HeaderElement headerElement;
     private PermaVoiceTickListener permaVoiceTickListener;
 
@@ -67,9 +65,6 @@ public class PermaVoice extends LabyModAddon {
         // Register forge listener
         api.registerForgeListener(new GuiOpenListener());
         api.registerForgeListener(this.permaVoiceTickListener = new PermaVoiceTickListener());
-
-        // NoiseReduction
-        this.noiseReduction = new NoiseReduction();
 
         // Register module
         api.registerModule(new BooleanModule());
@@ -167,10 +162,6 @@ public class PermaVoice extends LabyModAddon {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public NoiseReduction getNoiseReduction() {
-        return this.noiseReduction;
     }
 
     public PermaVoiceTickListener getPermaVoiceTickListener() {

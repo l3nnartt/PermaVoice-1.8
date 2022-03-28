@@ -51,9 +51,7 @@ public class PermaVoiceTickListener {
             return;
         }
         if (PermaVoice.getInstance().isActive() && !PermaVoice.getInstance().getVoiceChat().isPushToTalkPressed()) {
-            if (!PermaVoice.getInstance().getNoiseReduction().isNoiseReduction()) {
-                setPressed(true);
-            }
+            setPressed(true);
         }
 
         if (PermaVoice.getInstance().getKey() == -1) {
