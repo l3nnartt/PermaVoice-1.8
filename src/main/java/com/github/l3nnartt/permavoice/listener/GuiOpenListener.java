@@ -8,7 +8,7 @@ public class GuiOpenListener {
 
     @SubscribeEvent
     public void onGuiOpenEvent(GuiOpenEvent event) {
-        if (PermaVoice.getInstance().isInit() && PermaVoice.getInstance().isInitThread()) {
+        if (PermaVoice.getInstance().isInit()) {
             PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(false);
         }
     }
