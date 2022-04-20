@@ -1,9 +1,9 @@
 {
-  "uuid": "f31bfa9e-2757-4805-835f-aa38018336e7",
+  "uuid": "%uuid%",
   "name": "PermaVoice",
   "mainClass": "com.github.l3nnartt.permavoice.PermaVoice",
   "description": "This addon allows you to talk in the LabyMod VoiceChat continuously!",
-  "version": 5,
+  "version": 6,
   "author": "L3nnart_",
   "category": 2,
   "icon": "https://dl.lennartloesche.de/permavoice/logo.png"

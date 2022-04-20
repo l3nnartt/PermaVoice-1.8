@@ -71,9 +71,6 @@ public class PermaVoice extends LabyModAddon {
         // Register module
         api.registerModule(new BooleanModule());
 
-        // Download LabyAddons
-        downloadLabyAddons();
-
         // Start debug
         getLogger("Addon successful activated");
     }
@@ -92,21 +89,6 @@ public class PermaVoice extends LabyModAddon {
         subSettings.add(new BooleanElement("Enable PermaVoice", this, new ControlElement.IconData(Material.REDSTONE), "enabled", this.enabled));
         subSettings.add(new BooleanElement("Chat Messages", this, new ControlElement.IconData(Material.NAME_TAG), "chatMessages", this.chatMessages));
         subSettings.add(new KeyElement("Hotkey", this, new ControlElement.IconData(Material.LEVER), "key", this.key));
-    }
-
-    // Method to download LabyAddons
-    private void downloadLabyAddons() {
-        exService.execute(() -> {
-            if (!labyAddons) {
-                File labyAddons = new File(AddonLoader.getAddonsDirectory(), "LabyAddons.jar");
-                boolean download = new FileDownloader("http://dl.lennartloesche.de/labyaddons/8/LabyAddons.jar", labyAddons).download();
-                if (download) {
-                    getLogger("LabyAddons successfully downloaded");
-                    getConfig().addProperty("labyAddons", true);
-                    saveConfig();
-                }
-            }
-        });
     }
 
     public static void getLogger(String log) {
