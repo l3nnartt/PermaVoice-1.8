@@ -5,10 +5,8 @@ import com.github.l3nnartt.permavoice.listener.GuiOpenListener;
 import com.github.l3nnartt.permavoice.listener.PermaVoiceTickListener;
 import com.github.l3nnartt.permavoice.listener.PlayerJoinListener;
 import com.github.l3nnartt.permavoice.updater.Authenticator;
-import com.github.l3nnartt.permavoice.updater.FileDownloader;
 import com.github.l3nnartt.permavoice.updater.UpdateChecker;
 import com.github.l3nnartt.permavoice.utils.BooleanModule;
-import net.labymod.addon.AddonLoader;
 import net.labymod.addons.voicechat.VoiceChat;
 import net.labymod.api.LabyModAddon;
 import net.labymod.main.LabyMod;
@@ -16,7 +14,6 @@ import net.labymod.settings.elements.*;
 import net.labymod.utils.Material;
 import net.labymod.utils.ModColor;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,13 +21,12 @@ import java.util.logging.Logger;
 
 public class PermaVoice extends LabyModAddon {
 
-    // Addon instance
-    private static PermaVoice instance;
-
     // Logger
     private static final Logger LOGGER = Logger.getLogger("PermaVoice");
     private static final String PREFIX = "[PermaVoice] ";
 
+    // Addon instance
+    private static PermaVoice instance;
     // exService
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
 
