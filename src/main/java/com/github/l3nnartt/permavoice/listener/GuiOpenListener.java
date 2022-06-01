@@ -6,10 +6,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GuiOpenListener {
 
-    @SubscribeEvent
-    public void onGuiOpenEvent(GuiOpenEvent event) {
-        if (PermaVoice.getInstance().isInit()) {
-            PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(false);
-        }
+  @SubscribeEvent
+  public void onGuiOpenEvent(GuiOpenEvent event) {
+    if (PermaVoice.getInstance().isInit()) {
+      PermaVoice.getInstance().getPermaVoiceTickListener().setFieldTest(false);
     }
+  }
 }
