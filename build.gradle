@@ -15,7 +15,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-group= "com.github.l3nnartt.permavoice"
+group= "com.github.l3nnartt"
 archivesBaseName = "PermaVoice"
 
 sourceCompatibility = 1.8
