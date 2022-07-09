@@ -1,4 +1,4 @@
-name: Build Addon
+name: Google Java Format
 on:
   push:
     branches:
