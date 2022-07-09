@@ -1,0 +1,11 @@
+name: Build Addon
+on:
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Google Java Format
+        uses: axel-op/googlejavaformat-action@v3.6.0
