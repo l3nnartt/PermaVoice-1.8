@@ -37,7 +37,6 @@ public class PermaVoice extends LabyModAddon {
 
   // Booleans
   private boolean active;
-  private boolean labyAddons;
   private boolean chatMessages;
   private boolean enabled;
   private boolean init;
@@ -45,7 +44,6 @@ public class PermaVoice extends LabyModAddon {
   private boolean updateAvailable;
 
   // Util
-  private HeaderElement headerElement;
   private PermaVoiceTickListener permaVoiceTickListener;
 
   public void onEnable() {
@@ -71,7 +69,6 @@ public class PermaVoice extends LabyModAddon {
   }
 
   public void loadConfig() {
-    this.labyAddons = getConfig().has("labyAddons") && getConfig().get("labyAddons").getAsBoolean();
     this.enabled = !getConfig().has("enabled") || getConfig().get("enabled").getAsBoolean();
     this.key = getConfig().has("key") ? getConfig().get("key").getAsInt() : -1;
     this.chatMessages =
