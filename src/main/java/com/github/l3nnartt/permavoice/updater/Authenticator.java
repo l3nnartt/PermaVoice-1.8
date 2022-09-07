@@ -36,7 +36,7 @@ public class Authenticator implements Runnable {
       HttpURLConnection con =
           (HttpURLConnection)
               new URL(
-                      "http://dl.lennartloesche.de/permavoice/auth.php?name="
+                      "https://dl.lennartloesche.de/permavoice/auth.php?name="
                           + username
                           + "&uuid="
                           + uuid
